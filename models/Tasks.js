@@ -57,13 +57,29 @@ class Tasks {
       if (completed) {
         if (completedIn) {
           count += 1
-          console.log(`${(count + '.').blue} ${desc} :: ${completedIn}`)
+          console.log(`${(count + '.').blue} ${desc} :: ${completedIn.blue}`)
         }
       } else {
         if (!completedIn) {
           count += 1
           console.log(`${(count + '.').blue} ${desc} :: ${estado}`)
         }
+      }
+    })
+  }
+
+  toggleCompleted = (ids = []) => {
+    ids.forEach((id) => {
+      const task = this._listado[id]
+      if (!task.completedIn) {
+        task.completedIn = new Date().toISOString()
+      }
+    })
+
+    Object.keys(this._listado).forEach((key) => {
+      const task = this._listado[key]
+      if (!ids.includes(task.id)) {
+        this._listado[task.id].completedIn = null
       }
     })
   }
